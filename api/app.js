@@ -1,6 +1,7 @@
 //Third-party package imports
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 
 //Creating express server
 const app = express();
@@ -11,11 +12,17 @@ const userRouter = require("./routes/userRoutes");
 //Middlewares
 app.use(express.json()); //Attaches request body to the req object
 if (process.env.NODE_ENV == "development") app.use(morgan("dev"));
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://127.0.0.1:5173",
+  })
+);
 
 //Routing
 app.use("/api/v1/users", userRouter);
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
   res.json("Ok");
 });
 
