@@ -2,14 +2,18 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+
+//Project module imports
+const userRouter = require("./routes/userRoutes");
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
 
 //Creating express server
 const app = express();
 
-//Project module imports
-const userRouter = require("./routes/userRoutes");
-
 //Middlewares
+app.use(cookieParser());
 app.use(express.json()); //Attaches request body to the req object
 if (process.env.NODE_ENV == "development") app.use(morgan("dev"));
 app.use(
@@ -22,8 +26,15 @@ app.use(
 //Routing
 app.use("/api/v1/users", userRouter);
 
-app.get("/api/v1", (req, res) => {
-  res.json("Ok");
+//Global error handling middleware
+app.all("*", (req, res, next) => {
+  // const err = new Error(`Can't find ${req.originalUrl}`);
+  // err.status = "Failed";
+  // err.statusCode = 404;
+
+  next(new AppError(`Can't find ${req.originalUrl}`, 404));
 });
+
+app.use(globalErrorHandler);
 
 module.exports = app;
