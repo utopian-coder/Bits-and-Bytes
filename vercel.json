@@ -1,11 +1,11 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/app.js", "use": "@vercel/node" },
-    { "src": "client/index.html", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/api/v1/(.*)", "dest": "api/app.js" },
-    { "src": "/(.*)", "dest": "/client/index.html" }
+  "buildCommand": "cd client && npm i && ./node_modules/vite/bin/vite.js build",
+  "outputDirectory": "client/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/api/v1/(.*)",
+      "destination": "/api/app.js"
+    }
   ]
 }
