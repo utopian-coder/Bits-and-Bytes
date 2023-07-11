@@ -5,6 +5,11 @@ const userController = require("../controllers/userController");
 
 const router = Router();
 
-router.route("/").post(userController.createUser).get(userController.logIn);
+router
+  .route("/")
+  .post(userController.signUp)
+  .get(userController.getUserDataAtReaload);
+
+router.route("/log-in").post(userController.logIn);
 
 module.exports = router;

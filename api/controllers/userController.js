@@ -5,8 +5,7 @@ const User = require("../models/User");
 
 const saltRounds = 10; //For password hashing and comparing with hashed value later
 
-exports.createUser = async (req, res) => {
-  console.log(req.body);
+exports.signUp = async (req, res) => {
   const { name, email, password } = req.body;
   const passwordHash = bcrypt.hashSync(password, saltRounds);
 
@@ -31,10 +30,11 @@ exports.createUser = async (req, res) => {
 
 exports.logIn = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   const userDoc = await User.findOne({ email });
 
   if (!userDoc) {
-    res.status(404).json({
+    return res.status(404).json({
       status: "fail",
       message: "Invalid email, User not found!",
     });
@@ -51,7 +51,7 @@ exports.logIn = async (req, res) => {
   }
 
   jwt.sign(
-    { id: userDoc._id, email, password },
+    { id: userDoc._id, name: userDoc.name, email },
     process.env.JWT_SECRET,
     { expiresIn: "180d" },
     (err, token) => {
@@ -66,7 +66,7 @@ exports.logIn = async (req, res) => {
         .cookie("token", token)
         .status(200)
         .json({
-          status: "Success",
+          status: "success",
           data: {
             name: userDoc.name,
             email,
@@ -75,4 +75,30 @@ exports.logIn = async (req, res) => {
         });
     }
   );
+};
+
+/*After logging in we need user data in context right? S
+o whenever app reloads, a call to this endpoint is made from UserContext,
+in request token will be included by default right? We can easily verify that token and send back data, 
+we are storing {name, id, email} in jwt token. */
+exports.getUserDataAtReaload = (req, res) => {
+  const { token } = req.cookies;
+  console.log("Invoked");
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(500).json({
+        status: "fail",
+        message: "something went wrong",
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  });
 };
