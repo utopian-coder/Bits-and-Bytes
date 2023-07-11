@@ -1,11 +1,15 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 const User = require("../models/User");
+const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
 
 const saltRounds = 10; //For password hashing and comparing with hashed value later
 
 exports.signUp = async (req, res) => {
+  mongoose.connect(DB);
+
   const { name, email, password } = req.body;
   const passwordHash = bcrypt.hashSync(password, saltRounds);
 
@@ -29,6 +33,8 @@ exports.signUp = async (req, res) => {
 };
 
 exports.logIn = async (req, res) => {
+  mongoose.connect(DB);
+
   const { email, password } = req.body;
   console.log(req.body);
   const userDoc = await User.findOne({ email });
@@ -83,7 +89,6 @@ in request token will be included by default right? We can easily verify that to
 we are storing {name, id, email} in jwt token. */
 exports.getUserDataAtReaload = (req, res) => {
   const { token } = req.cookies;
-  console.log("Invoked");
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(500).json({
