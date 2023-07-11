@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  outline: 0;
+  border: 0;
+}
+
+:root {
+  --color-bg: rgb(253, 253, 253);
+  --color-hd: hsl(0, 0%, 98%);
+  --color-primary: #03c988;
+  --color-primary-faded: rgba(3, 201, 136, 0.12);
+  --color-card: hsl(0, 0%, 99.5%);
+  --text-primary: "Poppins", sans-serif;
+  --text-color-hd: #060606;
+  --text-color-primary: rgb(114, 114, 114);
+  --text-color-primary-faded: rgba(114, 114, 114, 0.2);
+  --text-color-secondary: rgb(83, 77, 77);
+
+  --container-lg: 75%;
+  --container-md: 85%;
+  --container-sm: 90%;
+
+  --transition: all 400ms ease;
+}
+
+a {
+  color: var(--text-color-hd);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.heading {
+  background-image: linear-gradient(90deg, black, rgb(143, 139, 139));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.btn {
+  width: fit-content;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color-hd);
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: var(--color-primary-faded);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.btn-transparent {
+  background-color: var(--color-primary-faded);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.btn-transparent:hover {
+  background-color: var(--color-primary);
+  border: 0;
+}
+
+.container {
+  width: var(--container-sm);
+}
+
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+input {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--text-color-secondary);
+  width: 100%;
+}
+
+section {
+  padding-top: 2rem;
+}
+
+section h2 {
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+a,
+p {
+  font-family: var(--text-primary);
+}
+
+@media screen and (min-width: 640px) {
+  .container {
+    width: var(--container-md);
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    width: var(--container-lg);
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  section {
+    padding: 3rem;
+  }
+}

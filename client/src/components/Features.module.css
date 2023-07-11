@@ -1,0 +1,19 @@
+.feature-container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media screen and (min-width: 624px) {
+  .feature-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .feature-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
