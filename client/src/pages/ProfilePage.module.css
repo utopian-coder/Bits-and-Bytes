@@ -4,6 +4,7 @@
   grid-template-columns: 40% 55%;
   gap: 5%;
   height: 60vh;
+  padding-top: 6rem;
 }
 
 .profile-nav {
@@ -45,9 +46,19 @@
   border-radius: 0.4rem;
 }
 
+@media screen and (min-width: 612px) {
+  .profile-container {
+    padding-top: 9rem;
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .profile-container {
     grid-template-columns: 40% 58%;
     gap: 2%;
+  }
+
+  .profile-container {
+    padding-top: 10rem;
   }
 }
