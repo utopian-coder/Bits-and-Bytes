@@ -1,0 +1,13 @@
+.course-feature {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--text-color-primary);
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.tick {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3083dc;
+}

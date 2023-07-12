@@ -60,7 +60,7 @@
     grid-template-columns: 1fr 1.7fr;
     place-items: center;
     gap: 2rem;
-    height: 85vh;
+    height: 82vh;
     padding-top: 3.5rem;
   }
 
@@ -85,7 +85,7 @@
 
   .waves {
     margin: 0;
-    height: 6rem;
+    height: 8rem;
   }
 
   .hero-heading {

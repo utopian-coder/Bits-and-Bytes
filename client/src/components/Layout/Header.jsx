@@ -78,10 +78,10 @@ const Header = () => {
             <MdOutlineFavoriteBorder className={classes["cta-icon"]} />
             <AiOutlineShoppingCart className={classes["cta-icon"]} />
           </div>
-          <div className={classes["nav-profile-container"]}>
+          <Link to='/profile' className={classes["nav-profile-container"]}>
             <LiaUserCircleSolid className={classes["cta-icon"]} />
             <p>{user.name.split(" ").at(0)}</p>
-          </div>
+          </Link>
         </div>
       )}
     </header>

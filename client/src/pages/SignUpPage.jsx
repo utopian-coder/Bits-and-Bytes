@@ -26,7 +26,7 @@ const SignUpPage = () => {
 
   return (
     <div className={`container ${classes["form-container"]}`}>
-      <h1>Register</h1>
+      <h1 className='heading'>Register</h1>
       <form ref={formRef} onSubmit={submitHandler}>
         <input
           type='text'

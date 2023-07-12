@@ -7,6 +7,8 @@ import LogInPage from "./pages/LogInPage";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import { UserContextProvider } from "./store/UserContext";
+import ProfilePage from "./pages/ProfilePage";
+import UpcomingFeaturesPage from "./pages/UpcomingFeaturesPage";
 
 //Setting default rules for axios requests
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL; //http://127.0.0.1:4000/api/v1
@@ -20,6 +22,8 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='log-in' element={<LogInPage />} />
           <Route path='sign-up' element={<SignUpPage />} />
+          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/upcoming' element={<UpcomingFeaturesPage />} />
         </Route>
       </Routes>
     </UserContextProvider>

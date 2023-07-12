@@ -26,7 +26,7 @@ const LogInPage = () => {
 
   return (
     <div className={`container ${classes["form-container"]}`}>
-      <h1>Log In</h1>
+      <h1 className='heading'>Log In</h1>
       <form ref={formRef} onSubmit={submitHandler}>
         <input
           type='email'
