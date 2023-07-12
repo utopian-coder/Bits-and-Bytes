@@ -8,7 +8,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import classes from "./Footer.module.css";
-import Wave from "../../assets/wave";
+import Wave from "../../assets/Wave";
 
 const Footer = () => {
   return (
