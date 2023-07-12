@@ -17,6 +17,14 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+
+  bio: String,
+
+  linkedin: String,
+
+  github: String,
+
+  twitter: String,
 });
 
 const User = model("User", userSchema);

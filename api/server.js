@@ -10,7 +10,7 @@ const app = require("./app");
 
 //Connecting to the database
 //  const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
-// // mongoose.connect(DB).then(() => {
+// mongoose.connect(DB).then(() => {
 //   console.log("DB connection successfull.");
 // });
 

@@ -10,6 +10,9 @@ router
   .post(userController.signUp)
   .get(userController.getUserDataAtReaload);
 
+router.route("/:id").put(userController.updateProfile);
+
 router.route("/log-in").post(userController.logIn);
+router.route("/log-out").post(userController.logOut);
 
 module.exports = router;

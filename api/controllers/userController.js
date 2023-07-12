@@ -107,3 +107,55 @@ exports.getUserDataAtReaload = (req, res) => {
     });
   });
 };
+
+//Log out handler endpoint
+exports.logOut = (req, res) => {
+  res.cookie("token", "").status(200).json({
+    status: "success",
+    message: "Logged out!",
+  });
+};
+
+//Update profile
+exports.updateProfile = (req, res) => {
+  mongoose.connect(DB);
+
+  const { bio, linkedin, github, twitter } = req.body;
+  const { id } = req.params;
+  const { token } = req.cookies;
+
+  jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
+    if (err) {
+      return res.status(500).json({
+        status: "fail",
+        message: "something went wrong",
+      });
+    }
+
+    if (user.id != id) {
+      return res.status(403).json({
+        status: "fail",
+        message: "Invalid credentials",
+      });
+    }
+
+    const updatedUserDoc = await User.findOneAndUpdate(
+      { email: user.email },
+      { bio, linkedin, github, twitter },
+      { new: true }
+    );
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        id: updatedUserDoc._id,
+        name: updatedUserDoc.name,
+        bio: updatedUserDoc.bio,
+        email: updatedUserDoc.email,
+        linkedin: updatedUserDoc.linkedin,
+        github: updatedUserDoc.github,
+        twitter: updatedUserDoc.twitter,
+      },
+    });
+  });
+};

@@ -4,16 +4,17 @@ const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
+//Creating express server
+const app = express();
+
+app.use(cookieParser());
+
 //Project module imports
 const userRouter = require("./routes/userRoutes");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 
-//Creating express server
-const app = express();
-
 //Middlewares
-app.use(cookieParser());
 app.use(express.json()); //Attaches request body to the req object
 if (process.env.NODE_ENV == "development") app.use(morgan("dev"));
 app.use(
