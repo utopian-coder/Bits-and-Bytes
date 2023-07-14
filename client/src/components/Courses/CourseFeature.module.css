@@ -9,5 +9,5 @@
 .tick {
   font-size: 1rem;
   font-weight: 700;
-  color: #3083dc;
+  color: var(--color-hover-component-border);
 }

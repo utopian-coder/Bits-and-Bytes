@@ -1,6 +1,4 @@
-import "./App.css";
 import axios from "axios";
-import Header from "./components/Layout/Header";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import LogInPage from "./pages/LogInPage";
@@ -9,6 +7,8 @@ import HomePage from "./pages/HomePage";
 import { UserContextProvider } from "./store/UserContext";
 import ProfilePage from "./pages/ProfilePage";
 import UpcomingFeaturesPage from "./pages/UpcomingFeaturesPage";
+import CartPage from "./pages/CartPage";
+import WishlistPage from "./pages/WishlistPage";
 
 //Setting default rules for axios requests
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL; //http://127.0.0.1:4000/api/v1
@@ -24,6 +24,8 @@ function App() {
           <Route path='sign-up' element={<SignUpPage />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/upcoming' element={<UpcomingFeaturesPage />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path='/wishlist' element={<WishlistPage />} />
         </Route>
       </Routes>
     </UserContextProvider>

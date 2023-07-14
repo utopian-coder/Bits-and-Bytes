@@ -1,3 +1,9 @@
+.footer h4,
+.footer h3 {
+  font-weight: 500;
+  color: white;
+}
+
 .logo {
   font-size: 1.6rem;
 }
@@ -10,11 +16,11 @@
 .footer,
 .footer a {
   background-color: #0d1321;
-  color: white;
+  color: var(--text-color-primary);
 }
 
 .footer p {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
 }
 
 .flex-container {
@@ -25,7 +31,7 @@
 }
 
 .playstore {
-  border: 1px solid white;
+  border: 1px solid var(--text-color-primary);
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -42,7 +48,7 @@
 }
 
 .icon {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 /* ===== Get In Touch, Community Section ===== */
@@ -51,7 +57,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .social-links {
@@ -63,14 +69,14 @@
 
 .social-icons {
   padding: 0.2rem;
-  font-size: 1.5rem;
-  border: 1px solid white;
+  font-size: 1.6rem;
+  border: 1px solid var(--text-color-primary);
   border-radius: 50%;
 }
 
 .copyright p {
-  font-weight: 600;
-  font-size: 0.8rem;
+  font-weight: 400;
+  font-size: 0.9rem;
   margin-bottom: 0.7rem;
 }
 

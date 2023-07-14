@@ -19,6 +19,7 @@
   --text-color-primary: rgb(114, 114, 114);
   --text-color-primary-faded: rgba(114, 114, 114, 0.2);
   --text-color-secondary: rgb(83, 77, 77);
+  --color-hover-component-border: #3083dc;
 
   --container-lg: 75%;
   --container-md: 85%;
@@ -93,8 +94,7 @@ input {
 }
 
 input:focus {
-  border-color: var(--text-color-secondary);
-  box-shadow: 0px 0px 2px rgba(66, 66, 66, 0.75);
+  border: 3px rgb(21, 154, 198) solid;
 }
 
 section {

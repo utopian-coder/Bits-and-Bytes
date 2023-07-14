@@ -110,6 +110,10 @@
   cursor: pointer;
 }
 
+.cta-icon:hover {
+  color: var(--color-hover-component-border);
+}
+
 .logged-in-cta {
   display: flex;
   gap: 0.8rem;

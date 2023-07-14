@@ -52,13 +52,13 @@ const Header = () => {
         )}
         <ul className={classes["nav-links"]}>
           <li>
-            <a href='#'>Why Us?</a>
+            <Link to='/upcoming'>Why Us?</Link>
           </li>
           <li>
-            <a href='#'>Tools</a>
+            <Link to='/upcoming'>Tools</Link>
           </li>
           <li>
-            <a href='#'>Courses</a>
+            <Link to='/upcoming'>Courses</Link>
           </li>
         </ul>
       </nav>
@@ -75,8 +75,12 @@ const Header = () => {
       {user && (
         <div className={classes["logged-in-cta"]}>
           <div className={classes["nav-cart-wishlist-container"]}>
-            <MdOutlineFavoriteBorder className={classes["cta-icon"]} />
-            <AiOutlineShoppingCart className={classes["cta-icon"]} />
+            <Link to='/cart'>
+              <MdOutlineFavoriteBorder className={classes["cta-icon"]} />
+            </Link>
+            <Link to='/wishlist'>
+              <AiOutlineShoppingCart className={classes["cta-icon"]} />
+            </Link>
           </div>
           <Link to='/profile' className={classes["nav-profile-container"]}>
             <LiaUserCircleSolid className={classes["cta-icon"]} />

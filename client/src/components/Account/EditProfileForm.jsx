@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useRef } from "react";
-import { UserContext } from "../store/UserContext";
+import { UserContext } from "../../store/UserContext";
 
 import classes from "./EditProfileForm.module.css";
 

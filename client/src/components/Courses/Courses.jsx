@@ -1,6 +1,7 @@
 import React from "react";
 import CourseCard from "./CourseCard";
 import classes from "./Courses.module.css";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   return (
@@ -18,7 +19,9 @@ const Courses = () => {
             labore nemo voluptates iusto adipisci provident saepe laboriosam
             quis minima aut?
           </p>
-          <button className='btn btn-primary'>Explore More Courses</button>
+          <Link to='/upcoming' className='btn btn-primary'>
+            Explore More Courses
+          </Link>
         </div>
       </section>
     </>

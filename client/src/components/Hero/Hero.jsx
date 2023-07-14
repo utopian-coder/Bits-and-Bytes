@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import HeroImage from "../assets/hero-image.jpg";
-import Waves from "../assets/waves.jpg";
+import HeroImage from "../../assets/hero-image.jpg";
+import Waves from "../../assets/waves.jpg";
 import classes from "./Hero.module.css";
 
 const Hero = () => {
@@ -21,7 +21,7 @@ const Hero = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
               quasi quisquam, ipsam ex id cum.
             </p>
-            <Link to='/sign-up' className='btn btn-primary'>
+            <Link to='/upcoming' className='btn btn-primary'>
               Get Started
             </Link>
           </div>
