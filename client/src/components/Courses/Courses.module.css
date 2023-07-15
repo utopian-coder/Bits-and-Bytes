@@ -16,8 +16,13 @@
 }
 
 .explore:hover {
-  color: white;
+  color: #fff;
   background: linear-gradient(90deg, #b8b8b8, #1f1f1f);
+}
+
+.explore a:hover {
+  background-color: #0d1321;
+  color: #fff;
 }
 
 @media screen and (min-width: 624px) {
@@ -38,7 +43,7 @@
     margin: 0 auto;
   }
 
-  .explore button {
+  .explore a {
     margin-top: 0.5rem;
   }
 }

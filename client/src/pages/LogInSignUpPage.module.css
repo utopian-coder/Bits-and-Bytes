@@ -3,8 +3,8 @@
   flex-direction: column;
   gap: 1.4rem;
   text-align: center;
-  margin: 10rem auto;
-  padding-top: 8rem;
+  margin: 0 auto;
+  padding: 7rem 0 !important;
 }
 
 .btn-form {
@@ -28,6 +28,6 @@
 
 @media screen and (min-width: 1024px) {
   .form-container {
-    padding: 12rem 20rem;
+    padding: 12rem 14rem !important;
   }
 }

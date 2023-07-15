@@ -102,6 +102,10 @@ section {
   text-align: center;
 }
 
+section:first-of-type {
+  padding-top: 5rem;
+}
+
 section h2 {
   margin-bottom: 1.5rem;
 }

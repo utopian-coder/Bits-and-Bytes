@@ -25,7 +25,7 @@ const LogInPage = () => {
   };
 
   return (
-    <div className={`container ${classes["form-container"]}`}>
+    <section className={`container ${classes["form-container"]}`}>
       <h1 className='heading'>Log In</h1>
       <form ref={formRef} onSubmit={submitHandler}>
         <input
@@ -51,7 +51,7 @@ const LogInPage = () => {
           <span className={classes.link}>Register here</span>
         </Link>
       </form>
-    </div>
+    </section>
   );
 };
 

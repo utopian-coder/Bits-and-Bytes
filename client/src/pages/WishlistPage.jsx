@@ -1,7 +1,7 @@
 import React from "react";
 
 const WishlistPage = () => {
-  return <div>WishlistPage</div>;
+  return <section>Wishlist</section>;
 };
 
 export default WishlistPage;

@@ -42,12 +42,20 @@ const Header = () => {
               className={classes["close-nav-icon"]}
               onClick={sidebarToggleHandler}
             />
-            <Link to='/log-in' onClick={sidebarToggleHandler}>
-              Log In
-            </Link>
-            <Link to='/sign-up' onClick={sidebarToggleHandler}>
-              Sign Up
-            </Link>
+            {user ? (
+              <Link onClick={sidebarToggleHandler} to='/profile'>
+                My Account
+              </Link>
+            ) : (
+              <>
+                <Link to='/log-in' onClick={sidebarToggleHandler}>
+                  Log In
+                </Link>
+                <Link to='/sign-up' onClick={sidebarToggleHandler}>
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         )}
         <ul className={classes["nav-links"]}>
@@ -59,6 +67,9 @@ const Header = () => {
           </li>
           <li>
             <Link to='/upcoming'>Courses</Link>
+          </li>
+          <li>
+            <Link to='/upcoming'>Dashboard</Link>
           </li>
         </ul>
       </nav>
