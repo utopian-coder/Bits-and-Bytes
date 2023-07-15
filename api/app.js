@@ -29,10 +29,6 @@ app.use("/api/v1/users", userRouter);
 
 //Global error handling middleware
 app.all("*", (req, res, next) => {
-  // const err = new Error(`Can't find ${req.originalUrl}`);
-  // err.status = "Failed";
-  // err.statusCode = 404;
-
   next(new AppError(`Can't find ${req.originalUrl}`, 404));
 });
 

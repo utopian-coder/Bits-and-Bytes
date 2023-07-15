@@ -3,70 +3,50 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const User = require("../models/User");
+const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
 
 const saltRounds = 10; //For password hashing and comparing with hashed value later
 
-exports.signUp = async (req, res) => {
+exports.signUp = catchAsync(async (req, res, next) => {
   mongoose.connect(DB);
 
   const { name, email, password } = req.body;
   const passwordHash = bcrypt.hashSync(password, saltRounds);
 
-  try {
-    await User.create({
-      name,
-      email,
-      password: passwordHash,
-    });
+  await User.create({
+    name,
+    email,
+    password: passwordHash,
+  });
 
-    res.status(201).json({
-      status: "success",
-      message: "User registered successfully.",
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "fail",
-      message: `${error.message}`,
-    });
-  }
-};
+  res.status(201).json({
+    status: "success",
+    message: "User registered successfully.",
+  });
+});
 
-exports.logIn = async (req, res) => {
+exports.logIn = catchAsync(async (req, res) => {
   mongoose.connect(DB);
 
   const { email, password } = req.body;
-  console.log(req.body);
   const userDoc = await User.findOne({ email });
 
-  if (!userDoc) {
-    return res.status(404).json({
-      status: "fail",
-      message: "Invalid email, User not found!",
-    });
-  }
+  if (!userDoc)
+    return next(new AppError("Invalid email, User not found!", 404));
 
   const passwordHash = userDoc.password;
   const isPasswordOk = bcrypt.compareSync(password, passwordHash);
 
-  if (!isPasswordOk) {
-    res.status(422).json({
-      status: "fail",
-      message: "Wrong Password",
-    });
-  }
+  if (!isPasswordOk) return next(new AppError("Wrong Password"), 422);
 
   jwt.sign(
     { id: userDoc._id, name: userDoc.name, email },
     process.env.JWT_SECRET,
     { expiresIn: "180d" },
     (err, token) => {
-      if (err) {
-        res.status(500).json({
-          status: "fail",
-          message: "Loggin in failed. Try again!",
-        });
-      }
+      if (err) return next(new AppError("Loggin in failed. Try again!", 500));
 
       res
         .cookie("token", token)
@@ -81,7 +61,7 @@ exports.logIn = async (req, res) => {
         });
     }
   );
-};
+});
 
 /*After logging in we need user data in context right? S
 o whenever app reloads, a call to this endpoint is made from UserContext,
@@ -90,12 +70,7 @@ we are storing {name, id, email} in jwt token. */
 exports.getUserDataAtReaload = (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) {
-      return res.status(500).json({
-        status: "fail",
-        message: "something went wrong",
-      });
-    }
+    if (err) return next(new AppError("Something went wrong", 500));
 
     res.status(200).json({
       status: "success",
@@ -124,38 +99,31 @@ exports.updateProfile = (req, res) => {
   const { id } = req.params;
   const { token } = req.cookies;
 
-  jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
-    if (err) {
-      return res.status(500).json({
-        status: "fail",
-        message: "something went wrong",
+  jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+    catchAsync(async (err, user) => {
+      if (err) return next(new AppError("Something went wrong", 500));
+      if (user.id != id) return next(new AppError("Invalid credentials", 403));
+
+      const updatedUserDoc = await User.findOneAndUpdate(
+        { email: user.email },
+        { bio, linkedin, github, twitter },
+        { new: true }
+      );
+
+      res.status(201).json({
+        status: "success",
+        data: {
+          id: updatedUserDoc._id,
+          name: updatedUserDoc.name,
+          bio: updatedUserDoc.bio,
+          email: updatedUserDoc.email,
+          linkedin: updatedUserDoc.linkedin,
+          github: updatedUserDoc.github,
+          twitter: updatedUserDoc.twitter,
+        },
       });
-    }
-
-    if (user.id != id) {
-      return res.status(403).json({
-        status: "fail",
-        message: "Invalid credentials",
-      });
-    }
-
-    const updatedUserDoc = await User.findOneAndUpdate(
-      { email: user.email },
-      { bio, linkedin, github, twitter },
-      { new: true }
-    );
-
-    res.status(201).json({
-      status: "success",
-      data: {
-        id: updatedUserDoc._id,
-        name: updatedUserDoc.name,
-        bio: updatedUserDoc.bio,
-        email: updatedUserDoc.email,
-        linkedin: updatedUserDoc.linkedin,
-        github: updatedUserDoc.github,
-        twitter: updatedUserDoc.twitter,
-      },
-    });
-  });
+    })
+  );
 };
