@@ -6,6 +6,7 @@ import TestimonialItem from "./TestimonialItem";
 const Testimonials = () => {
   return (
     <section className={classes["testimonial-container"]}>
+      <h2 className='heading'>What our previous students say?</h2>
       <article className={classes.testimonials}>
         <TestimonialItem imageSource={user1} />
         <TestimonialItem imageSource={user1} />
