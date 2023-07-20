@@ -127,7 +127,7 @@ p {
   width: 0.8rem;
 }
 
-::-webkit-scrollbar-track {
+::webkit-s ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
