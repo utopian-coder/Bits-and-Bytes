@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const getDataFromJWT = require("../utils/getDataFromJWT");
 const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
 
 const saltRounds = 10; //For password hashing and comparing with hashed value later
@@ -49,7 +50,11 @@ exports.logIn = catchAsync(async (req, res) => {
       if (err) return next(new AppError("Loggin in failed. Try again!", 500));
 
       res
-        .cookie("token", token)
+        .cookie("token", token, {
+          sameSite: "none",
+          secure: true,
+          httpOnly: true,
+        })
         .status(200)
         .json({
           status: "success",
@@ -67,21 +72,20 @@ exports.logIn = catchAsync(async (req, res) => {
 o whenever app reloads, a call to this endpoint is made from UserContext,
 in request token will be included by default right? We can easily verify that token and send back data, 
 we are storing {name, id, email} in jwt token. */
-exports.getUserDataAtReaload = (req, res) => {
+exports.getUserDataAtReaload = catchAsync(async (req, res) => {
   const { token } = req.cookies;
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return next(new AppError("Something went wrong", 500));
 
-    res.status(200).json({
-      status: "success",
-      data: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-    });
+  const user = await getDataFromJWT(token);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    },
   });
-};
+});
 
 //Log out handler endpoint
 exports.logOut = (req, res) => {
