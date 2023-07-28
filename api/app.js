@@ -7,31 +7,34 @@ const cookieParser = require("cookie-parser");
 //Creating express server
 const app = express();
 
-app.use(cookieParser());
-
-//Project module imports
-const userRouter = require("./routes/userRoutes");
-const AppError = require("./utils/appError");
-const globalErrorHandler = require("./controllers/errorController");
-
 //Middlewares
+app.use(cookieParser());
 app.use(express.json()); //Attaches request body to the req object
-if (process.env.NODE_ENV == "development") app.use(morgan("dev"));
+
 app.use(
   cors({
     credentials: true,
-    origin: "http://127.0.0.1:5173",
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   })
 );
 
-//Routing
-app.use("/api/v1/users", userRouter);
+//Project module imports
+const userRouter = require("./routes/userRoutes");
+const courseRouter = require("./routes/courseRoutes");
 
-//Global error handling middleware
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
+
+//Routing mf
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/courses", courseRouter);
+
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl}`, 404));
 });
 
+//Global error handling middleware
 app.use(globalErrorHandler);
 
 module.exports = app;
