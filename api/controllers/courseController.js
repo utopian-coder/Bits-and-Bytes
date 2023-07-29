@@ -1,10 +1,10 @@
 const { mongoose } = require("mongoose");
 
+const Course = require("../models/Course");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("./../utils/appError");
-
-const Course = require("../models/Course");
 const getDataFromJWT = require("../utils/getDataFromJWT");
+const downloadAndUploadToS3 = require("../utils/uploadToS3");
 
 const DB = process.env.DB.replace("<password>", process.env.PASSWORD);
 
@@ -16,12 +16,18 @@ exports.createCourse = catchAsync(async (req, res, next) => {
 
   const { title, topics, price, catagory, cover } = req.body;
 
+  //download image from link and upload to aws
+  let coverUrl = "";
+  if (cover) {
+    coverUrl = await downloadAndUploadToS3(cover);
+  }
+
   const course = await Course.create({
     title,
     topics,
     price,
     catagory,
-    cover,
+    cover: coverUrl,
     instructor: userData.id,
   });
 
@@ -106,6 +112,7 @@ exports.getCourse = catchAsync(async (req, res, next) => {
     "github",
     "linkedin",
     "twitter",
+    "cover",
   ]);
 
   if (!course) {
