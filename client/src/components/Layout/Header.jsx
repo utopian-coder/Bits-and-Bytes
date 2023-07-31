@@ -66,7 +66,7 @@ const Header = () => {
             <Link to='/upcoming'>Tools</Link>
           </li>
           <li>
-            <Link to='/upcoming'>Courses</Link>
+            <Link to='/courses'>Courses</Link>
           </li>
           <li>
             <Link to='/upcoming'>Dashboard</Link>

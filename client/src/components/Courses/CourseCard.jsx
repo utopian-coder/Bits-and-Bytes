@@ -8,7 +8,7 @@ const CourseCard = () => {
       <h4 className={classes["course-title"]}>Title</h4>
       <div className={classes.pricing}>
         <span>₹899</span>
-        <p>Full Lifetime Acces</p>
+        <p>Full Lifetime Access</p>
       </div>
       <div className={classes["course-features-container"]}>
         <CourseFeature />

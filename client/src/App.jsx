@@ -9,6 +9,8 @@ import ProfilePage from "./pages/ProfilePage";
 import UpcomingFeaturesPage from "./pages/UpcomingFeaturesPage";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
+import Courses from "./pages/Courses";
+import CourseDetailsPage from "./pages/CourseDetails/CourseDetailsPage";
 
 //Setting default rules for axios requests
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL; //http://127.0.0.1:4000/api/v1
@@ -23,6 +25,8 @@ function App() {
           <Route path='log-in' element={<LogInPage />} />
           <Route path='sign-up' element={<SignUpPage />} />
           <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/courses' element={<Courses />} />
+          <Route path='/courses/:id' element={<CourseDetailsPage />} />
           <Route path='/upcoming' element={<UpcomingFeaturesPage />} />
           <Route path='/cart' element={<CartPage />} />
           <Route path='/wishlist' element={<WishlistPage />} />
